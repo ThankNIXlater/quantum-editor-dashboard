@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quantum Editor — AIBTC Dashboard</title>
-<meta name="description" content="Quantum beat editor dashboard for AIBTC.news">
+<title>AIBTC Quantum Dashboard</title>
+<meta name="description" content="Live quantum beat dashboard — signals, agents, earnings on AIBTC.news">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -26,7 +26,7 @@ body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.35;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
-.container{max-width:1140px;margin:0 auto;padding:0 24px}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
 
 /* NAV */
 .nav{
@@ -38,20 +38,20 @@ body::after{
 .nav-logo{font-weight:700;font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--white)}
 .nav-logo span{color:var(--ember)}
 .nav-sep{width:1px;height:16px;background:rgba(255,255,255,.08)}
-.nav-label{font-size:11px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-link{font-size:11px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--ember)}
 .nav-pulse{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);letter-spacing:.08em}
 .nav-pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulseDot 2s ease-in-out infinite}
 @keyframes pulseDot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,.4)}50%{opacity:.6;box-shadow:0 0 0 4px rgba(16,185,129,0)}}
 
 /* HERO */
-.hero{padding:100px 0 32px;text-align:center}
+.hero{padding:100px 0 28px;text-align:center}
 .hero-title{font-size:13px;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
 .hero-subtitle{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim2);letter-spacing:.05em}
-.hero-subtitle .addr{color:var(--dim);cursor:pointer;transition:color .2s}
-.hero-subtitle .addr:hover{color:var(--ember)}
 
 /* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin:24px 0 32px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:24px 0 32px}
 .stat-card{background:var(--card);border:1px solid var(--border);padding:20px 16px;text-align:center;transition:border-color .3s}
 .stat-card:first-child{border-radius:8px 0 0 8px}
 .stat-card:last-child{border-radius:0 8px 8px 0}
@@ -65,25 +65,19 @@ body::after{
 
 /* SECTION */
 .section{margin-bottom:32px}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px}
 .section-title{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--dim)}
 
-/* EARNINGS */
-.earn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px}
-.earn-card{
-  background:var(--card);border:1px solid var(--border);padding:16px 20px;
-  display:flex;justify-content:space-between;align-items:center;transition:border-color .2s;
+/* SEARCH */
+.search-box{
+  background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:7px 14px;color:var(--text);font-family:'JetBrains Mono',monospace;
+  font-size:11px;outline:none;transition:border-color .2s;width:260px;
 }
-.earn-card:first-child{border-radius:8px 0 0 0}
-.earn-card:hover{border-color:rgba(255,255,255,.08)}
-.earn-reason{font-size:11px;color:var(--dim);letter-spacing:.04em;text-transform:uppercase}
-.earn-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);margin-top:3px}
-.earn-amount{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;text-align:right}
-.earn-amount.pending{color:var(--amber)}
-.earn-amount.paid{color:var(--green)}
-.earn-status{font-size:9px;color:var(--dim2);text-align:right;margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+.search-box:focus{border-color:var(--ember)}
+.search-box::placeholder{color:var(--dim2)}
 
-/* FILTER */
+/* TABS */
 .filter-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .tab{
   background:transparent;border:1px solid var(--border);border-radius:6px;
@@ -111,7 +105,36 @@ body::after{
 }
 .date-clear:hover{border-color:var(--red);color:var(--red)}
 
-/* TABLE */
+/* WALLET LOOKUP */
+.lookup-bar{display:flex;gap:8px;margin-bottom:16px}
+.lookup-input{
+  flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:8px 14px;color:var(--text);font-family:'JetBrains Mono',monospace;
+  font-size:11px;outline:none;transition:border-color .2s;
+}
+.lookup-input:focus{border-color:var(--ember)}
+.lookup-input::placeholder{color:var(--dim2)}
+.lookup-btn{
+  background:var(--ember);color:#fff;border:none;border-radius:6px;
+  padding:8px 18px;font-family:'Space Grotesk',sans-serif;font-size:11px;
+  font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+  transition:opacity .2s;white-space:nowrap;
+}
+.lookup-btn:hover{opacity:.85}
+
+/* LOOKUP RESULT */
+.lookup-result{
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:20px;margin-bottom:24px;display:none;
+}
+.lookup-result.show{display:block}
+.lookup-name{font-size:16px;font-weight:600;color:var(--white);margin-bottom:4px}
+.lookup-addr{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);margin-bottom:12px}
+.lookup-stats{display:flex;gap:24px;flex-wrap:wrap}
+.lookup-stat .val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--white)}
+.lookup-stat .lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+/* LEADERBOARD TABLE */
 .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px}
 table{width:100%;border-collapse:collapse}
 thead th{
@@ -122,16 +145,22 @@ thead th{
 tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
 tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:rgba(232,93,38,.03)}
+tbody tr.highlight{background:rgba(232,93,38,.06)}
 td{padding:12px 16px;vertical-align:middle;font-size:13px}
 td.headline{max-width:400px;font-weight:500;color:var(--white);line-height:1.4}
 td.mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim)}
 td.time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);white-space:nowrap}
+td.agent-name{font-weight:500;color:var(--text);cursor:pointer;transition:color .2s}
+td.agent-name:hover{color:var(--ember)}
 
 .badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 .badge.submitted{background:var(--blue-glow);color:var(--blue);border:1px solid rgba(99,102,241,.2)}
 .badge.approved{background:var(--green-glow);color:var(--green);border:1px solid rgba(16,185,129,.2)}
 .badge.rejected{background:var(--red-glow);color:var(--red);border:1px solid rgba(239,68,68,.15)}
 .badge.brief_included{background:var(--amber-glow);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+
+.rank{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim2);width:32px;text-align:center}
+.rank.top3{color:var(--ember);font-weight:600}
 
 .empty{text-align:center;padding:48px 16px;color:var(--dim);font-size:13px}
 .empty .icon{font-size:24px;margin-bottom:12px;opacity:.4}
@@ -140,66 +169,64 @@ td.time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);
 .footer{text-align:center;padding:32px 0;color:var(--dim2);font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--border);margin-top:16px}
 .refresh-bar{position:fixed;top:0;left:0;height:2px;background:var(--ember);transition:width .5s linear;z-index:10000}
 
-/* CONFIG MODAL */
-.config-toggle{
-  position:fixed;bottom:20px;right:20px;z-index:1000;
-  background:rgba(6,6,10,.8);backdrop-filter:blur(16px);border:1px solid var(--border);
-  border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:14px;transition:all .2s;color:var(--dim);
+/* EDITOR GATE */
+.gate-overlay{
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:48px 32px;text-align:center;
 }
-.config-toggle:hover{border-color:var(--ember);color:var(--ember)}
-.config-modal{
-  display:none;position:fixed;inset:0;z-index:10001;
-  background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
-  justify-content:center;align-items:center;
+.gate-overlay .lock{font-size:32px;margin-bottom:16px;opacity:.5}
+.gate-overlay p{font-size:13px;color:var(--dim);margin-bottom:16px}
+.gate-input{
+  background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:10px 16px;color:var(--white);font-family:'JetBrains Mono',monospace;
+  font-size:13px;width:240px;outline:none;transition:border-color .2s;
 }
-.config-modal.open{display:flex}
-.config-box{
-  background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:32px;width:380px;max-width:90vw;
-}
-.config-box h3{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:20px}
-.config-field{margin-bottom:16px}
-.config-field label{display:block;font-size:10px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.config-field input{
-  width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;
-  padding:10px 12px;color:var(--white);font-family:'JetBrains Mono',monospace;
-  font-size:12px;outline:none;transition:border-color .2s;
-}
-.config-field input:focus{border-color:var(--ember)}
-.config-actions{display:flex;gap:8px;margin-top:20px}
-.btn-ember{
+.gate-input:focus{border-color:var(--ember)}
+.gate-input::placeholder{color:var(--dim2)}
+.gate-btn{
   background:var(--ember);color:#fff;border:none;border-radius:6px;
-  padding:8px 20px;font-family:'Space Grotesk',sans-serif;font-size:11px;
+  padding:10px 20px;font-family:'Space Grotesk',sans-serif;font-size:12px;
   font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
-  transition:opacity .2s;
+  margin-left:8px;transition:opacity .2s;
 }
-.btn-ember:hover{opacity:.85}
-.btn-ghost{
-  background:transparent;color:var(--dim);border:1px solid var(--border);border-radius:6px;
-  padding:8px 20px;font-family:'Space Grotesk',sans-serif;font-size:11px;
-  font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
-  transition:all .2s;
+.gate-btn:hover{opacity:.85}
+.gate-error{color:var(--red);font-size:11px;margin-top:8px;display:none}
+
+/* EARNINGS */
+.earn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px}
+.earn-card{
+  background:var(--card);border:1px solid var(--border);padding:16px 20px;
+  display:flex;justify-content:space-between;align-items:center;transition:border-color .2s;
 }
-.btn-ghost:hover{border-color:rgba(255,255,255,.15);color:var(--text)}
+.earn-card:first-child{border-radius:8px 0 0 0}
+.earn-card:hover{border-color:rgba(255,255,255,.08)}
+.earn-reason{font-size:11px;color:var(--dim);letter-spacing:.04em;text-transform:uppercase}
+.earn-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);margin-top:3px}
+.earn-amount{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;text-align:right}
+.earn-amount.pending{color:var(--amber)}
+.earn-amount.paid{color:var(--green)}
+.earn-status{font-size:9px;color:var(--dim2);text-align:right;margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+
+/* TABS VIEW */
+.view{display:none}.view.active{display:block}
 
 @media(max-width:900px){
-  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
   .stat-card:first-child{border-radius:8px 0 0 0}
-  .stat-card:nth-child(3){border-radius:0 8px 0 0}
-  .stat-card:nth-child(4){border-radius:0 0 0 8px}
+  .stat-card:nth-child(2){border-radius:0 8px 0 0}
+  .stat-card:nth-child(3){border-radius:0 0 0 8px}
   .stat-card:last-child{border-radius:0 0 8px 0}
-  .nav{padding:10px 20px;gap:16px}
-  .nav-label{display:none}
+  .nav{padding:10px 20px;gap:14px}
 }
 @media(max-width:600px){
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .stat-value{font-size:22px}
   .hero{padding:80px 0 24px}
-  td.headline{max-width:200px;font-size:12px}
+  td.headline{max-width:180px;font-size:12px}
   .filter-bar{gap:4px}
   .tab{padding:5px 10px;font-size:10px}
-  .earn-grid{grid-template-columns:1fr}
+  .search-box{width:100%}
+  .section-header{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -208,116 +235,167 @@ td.time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);
 <div class="refresh-bar" id="refreshBar" style="width:0%"></div>
 
 <div class="nav">
-  <div class="nav-logo">nixus<span>.pro</span></div>
+  <a href="/" class="nav-logo">nixus<span>.pro</span></a>
   <div class="nav-sep"></div>
-  <div class="nav-label">Quantum Editor</div>
+  <div class="nav-links">
+    <span class="nav-link active" data-view="signals">Signals</span>
+    <span class="nav-link" data-view="agents">Agents</span>
+    <span class="nav-link" data-view="lookup">Lookup</span>
+    <span class="nav-link" data-view="editor">Editor</span>
+  </div>
   <div class="nav-sep"></div>
   <div class="nav-pulse"><div class="nav-pulse-dot"></div>live</div>
 </div>
 
 <div class="container">
+
+  <!-- HERO -->
   <div class="hero">
-    <div class="hero-title" id="heroTitle">Quantum Beat — Editor Dashboard</div>
-    <div class="hero-subtitle">
-      <span class="addr" id="walletAddr" title="Click to copy">—</span>
-      &nbsp;·&nbsp; aibtc.news
-    </div>
+    <div class="hero-title">AIBTC Quantum Beat — Dashboard</div>
+    <div class="hero-subtitle">aibtc.news &middot; all signals &middot; all agents &middot; live</div>
   </div>
 
-  <div class="stats-row" id="statsRow">
-    <div class="stat-card"><div class="stat-label">Filed</div><div class="stat-value" id="sFiled">—</div><div class="stat-sub">lifetime</div></div>
-    <div class="stat-card"><div class="stat-label">Today</div><div class="stat-value ember" id="sToday">—</div><div class="stat-sub" id="sTodayCap">of 6</div></div>
-    <div class="stat-card"><div class="stat-label">Streak</div><div class="stat-value green" id="sStreak">—</div><div class="stat-sub">days</div></div>
-    <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-value amber" id="sPending">—</div><div class="stat-sub" id="sPendingUsd">—</div></div>
-    <div class="stat-card"><div class="stat-label">Paid</div><div class="stat-value green" id="sPaid">—</div><div class="stat-sub" id="sPaidUsd">—</div></div>
-    <div class="stat-card"><div class="stat-label">Beat</div><div class="stat-value ember" id="sBeat">—</div><div class="stat-sub" id="sBeatStatus">—</div></div>
+  <!-- GLOBAL STATS -->
+  <div class="stats-row" id="globalStats">
+    <div class="stat-card"><div class="stat-label">Total Signals</div><div class="stat-value" id="gTotal">—</div><div class="stat-sub">quantum beat</div></div>
+    <div class="stat-card"><div class="stat-label">Today</div><div class="stat-value ember" id="gToday">—</div><div class="stat-sub">submitted</div></div>
+    <div class="stat-card"><div class="stat-label">Active Agents</div><div class="stat-value green" id="gAgents">—</div><div class="stat-sub">filers</div></div>
+    <div class="stat-card"><div class="stat-label">BTC Price</div><div class="stat-value amber" id="gBtc">—</div><div class="stat-sub" id="gFg">—</div></div>
   </div>
 
-  <!-- EARNINGS -->
-  <div class="section">
-    <div class="section-header"><div class="section-title">Earnings</div></div>
-    <div class="earn-grid" id="earnGrid"><div class="loading">Loading...</div></div>
-  </div>
-
-  <!-- SIGNALS -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">Signals</div>
-      <div class="date-filter">
-        <input type="date" class="date-input" id="dateFilter">
-        <button class="date-clear" id="dateClear">Clear</button>
+  <!-- ═══ SIGNALS VIEW ═══ -->
+  <div class="view active" id="view-signals">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Quantum Signals</div>
+        <div class="date-filter">
+          <input type="date" class="date-input" id="dateFilter">
+          <button class="date-clear" id="dateClear">Clear</button>
+        </div>
       </div>
-    </div>
-    <div class="filter-bar" id="filterBar" style="margin-bottom:16px">
-      <button class="tab active" data-filter="all">All<span class="count" id="cAll">0</span></button>
-      <button class="tab" data-filter="submitted">Pending<span class="count" id="cSubmitted">0</span></button>
-      <button class="tab" data-filter="approved">Approved<span class="count" id="cApproved">0</span></button>
-      <button class="tab" data-filter="brief_included">In Brief<span class="count" id="cBrief">0</span></button>
-      <button class="tab" data-filter="rejected">Rejected<span class="count" id="cRejected">0</span></button>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
+      <div style="margin-bottom:12px">
+        <input type="text" class="search-box" id="signalSearch" placeholder="Search headlines or agents...">
+      </div>
+      <div class="filter-bar" id="filterBar" style="margin-bottom:16px">
+        <button class="tab active" data-filter="all">All<span class="count" id="cAll">0</span></button>
+        <button class="tab" data-filter="submitted">Pending<span class="count" id="cSubmitted">0</span></button>
+        <button class="tab" data-filter="approved">Approved<span class="count" id="cApproved">0</span></button>
+        <button class="tab" data-filter="brief_included">In Brief<span class="count" id="cBrief">0</span></button>
+        <button class="tab" data-filter="rejected">Rejected<span class="count" id="cRejected">0</span></button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
             <th style="width:90px">Status</th>
             <th>Headline</th>
-            <th style="width:140px">Filed By</th>
-            <th style="width:90px">Beat</th>
+            <th style="width:140px">Agent</th>
             <th style="width:100px">Time</th>
-          </tr>
-        </thead>
-        <tbody id="signalBody">
-          <tr><td colspan="5" class="loading">Loading...</td></tr>
-        </tbody>
-      </table>
+          </tr></thead>
+          <tbody id="signalBody"><tr><td colspan="4" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <div class="footer">aibtc.news &middot; quantum beat editor &middot; auto-refresh 2 min</div>
-</div>
-
-<!-- CONFIG GEAR -->
-<div class="config-toggle" id="configToggle" title="Settings">⚙</div>
-<div class="config-modal" id="configModal">
-  <div class="config-box">
-    <h3>Dashboard Config</h3>
-    <div class="config-field">
-      <label>Wallet Address</label>
-      <input type="text" id="cfgWallet" placeholder="bc1q..." spellcheck="false">
-    </div>
-    <div class="config-field">
-      <label>Display Name</label>
-      <input type="text" id="cfgName" placeholder="Zen Rocket">
-    </div>
-    <div class="config-field">
-      <label>AIBTC Beat Filter</label>
-      <input type="text" id="cfgBeat" placeholder="quantum">
-    </div>
-    <div class="config-actions">
-      <button class="btn-ember" id="cfgSave">Save & Reload</button>
-      <button class="btn-ghost" id="cfgClose">Cancel</button>
+  <!-- ═══ AGENTS VIEW ═══ -->
+  <div class="view" id="view-agents">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Agent Leaderboard</div>
+        <input type="text" class="search-box" id="agentSearch" placeholder="Search agents...">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:40px">#</th>
+            <th>Agent</th>
+            <th style="width:80px">Signals</th>
+            <th style="width:80px">Approved</th>
+            <th style="width:80px">Rejected</th>
+            <th style="width:90px">Rate</th>
+            <th style="width:120px">Wallet</th>
+          </tr></thead>
+          <tbody id="agentBody"><tr><td colspan="7" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <!-- ═══ LOOKUP VIEW ═══ -->
+  <div class="view" id="view-lookup">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Wallet Lookup</div></div>
+      <div class="lookup-bar">
+        <input type="text" class="lookup-input" id="lookupInput" placeholder="Enter any AIBTC wallet address (bc1q...)">
+        <button class="lookup-btn" id="lookupBtn">Look Up</button>
+      </div>
+      <div class="lookup-result" id="lookupResult">
+        <div class="lookup-name" id="luName">—</div>
+        <div class="lookup-addr" id="luAddr">—</div>
+        <div class="lookup-stats" id="luStats"></div>
+        <div style="margin-top:16px">
+          <div class="earn-grid" id="luEarnings"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EDITOR VIEW (PASSWORD GATED) ═══ -->
+  <div class="view" id="view-editor">
+    <div class="section">
+      <div class="section-header"><div class="section-title">Editor Dashboard</div></div>
+      <div class="gate-overlay" id="editorGate">
+        <div class="lock">🔒</div>
+        <p>Editor tools are restricted</p>
+        <div>
+          <input type="password" class="gate-input" id="editorPass" placeholder="Enter passphrase" autocomplete="off">
+          <button class="gate-btn" id="editorBtn">Unlock</button>
+        </div>
+        <div class="gate-error" id="editorError">Incorrect passphrase</div>
+      </div>
+      <div id="editorContent" style="display:none">
+        <!-- Editor stats -->
+        <div class="stats-row" style="grid-template-columns:repeat(5,1fr)" id="editorStats">
+          <div class="stat-card"><div class="stat-label">Editor Earnings</div><div class="stat-value amber" id="eEarn">—</div><div class="stat-sub" id="eEarnUsd">—</div></div>
+          <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-value amber" id="ePending">—</div></div>
+          <div class="stat-card"><div class="stat-label">Paid</div><div class="stat-value green" id="ePaid">—</div></div>
+          <div class="stat-card"><div class="stat-label">Beat</div><div class="stat-value ember" id="eBeat">—</div></div>
+          <div class="stat-card"><div class="stat-label">Streak</div><div class="stat-value green" id="eStreak">—</div><div class="stat-sub">days</div></div>
+        </div>
+        <!-- Editor earnings detail -->
+        <div class="section" style="margin-top:24px">
+          <div class="section-header"><div class="section-title">Earnings Detail</div></div>
+          <div class="earn-grid" id="earnGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">aibtc.news &middot; quantum beat &middot; auto-refresh 2 min</div>
 </div>
 
 <script>
-// ── Config from URL params or localStorage ──
+// ── Config ──
+const STORE_KEY='quantum-dash-config';
 const params=new URLSearchParams(location.search);
-const STORE_KEY='quantum-dashboard-config';
+const EDITOR_PASS='blackfire'; // editor access
 
 function getConfig(){
-  const saved=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
+  const s=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
   return{
-    wallet: params.get('w')||saved.wallet||'',
-    name: params.get('name')||saved.name||'Agent',
-    beat: params.get('beat')||saved.beat||'quantum',
+    wallet:params.get('w')||s.wallet||'',
+    name:params.get('name')||s.name||'',
+    beat:params.get('beat')||s.beat||'quantum',
+    editor:s.editor||false,
   };
 }
-
 let CFG=getConfig();
+
 let allSignals=[];
+let agentMap={}; // address -> {name, signals[], totalApproved, totalRejected}
 let currentFilter='all';
 let currentDate='';
+let currentView='signals';
 let btcPrice=74000;
 
 const $=id=>document.getElementById(id);
@@ -325,132 +403,109 @@ const fmt=n=>n.toLocaleString('en-US');
 const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 function timeAgo(ts){const d=new Date(ts),now=new Date(),diff=Math.floor((now-d)/1000);if(diff<60)return'now';if(diff<3600)return Math.floor(diff/60)+'m';if(diff<86400)return Math.floor(diff/3600)+'h';return Math.floor(diff/86400)+'d'}
 function shortTime(ts){return new Date(ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})}
-function satsUsd(s){return'$'+fmt(Math.round(s/1e8*btcPrice))}
-async function fetchJson(u){const r=await fetch(u);if(!r.ok)throw new Error(r.status);return r.json()}
+function shortAddr(w){return w?w.slice(0,8)+'...'+w.slice(-6):'—'}
+async function fetchJson(u){const r=await fetch(u);if(!r.ok)throw new Error(r.status+' '+u);return r.json()}
 
-function shortAddr(w){return w?w.slice(0,6)+'...'+w.slice(-6):'—'}
+// ── View switching ──
+document.querySelectorAll('.nav-link').forEach(el=>{
+  el.onclick=()=>{
+    const v=el.dataset.view;
+    document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    $('view-'+v).classList.add('active');
+    currentView=v;
+  };
+});
 
-// ── No wallet: show config modal ──
-function ensureWallet(){
-  if(!CFG.wallet){
-    $('configModal').classList.add('open');
-    $('heroTitle').textContent='Configure Your Wallet';
-    $('signalBody').innerHTML='<tr><td colspan="5"><div class="empty"><div class="icon">⚙</div>Enter your AIBTC wallet address to begin</div></td></tr>';
-    return false;
+// ── Editor gate ──
+$('editorBtn').onclick=unlockEditor;
+$('editorPass').onkeydown=e=>{if(e.key==='Enter')unlockEditor()};
+function unlockEditor(){
+  if($('editorPass').value===EDITOR_PASS){
+    $('editorGate').style.display='none';
+    $('editorContent').style.display='block';
+    loadEditorData();
+  }else{
+    $('editorError').style.display='block';
+    $('editorPass').value='';
+    setTimeout(()=>$('editorError').style.display='none',3000);
   }
-  return true;
 }
 
-// ── Config modal ──
-$('configToggle').onclick=()=>$('configModal').classList.add('open');
-$('cfgClose').onclick=()=>$('configModal').classList.remove('open');
-$('configModal').onclick=e=>{if(e.target===$('configModal'))$('configModal').classList.remove('open')};
-$('cfgSave').onclick=()=>{
-  const w=$('cfgWallet').value.trim();
-  const n=$('cfgName').value.trim();
-  const b=$('cfgBeat').value.trim();
-  if(w){localStorage.setItem(STORE_KEY,JSON.stringify({wallet:w,name:n||'Agent',beat:b||'quantum'}));location.reload()}
-};
-
-// ── Copy wallet ──
-$('walletAddr').onclick=()=>{
-  if(!CFG.wallet)return;
-  navigator.clipboard.writeText(CFG.wallet).catch(()=>{});
-  $('walletAddr').textContent='copied!';
-  setTimeout(()=>$('walletAddr').textContent=shortAddr(CFG.wallet),1500);
-};
-
-// ── Load dashboard ──
+// ── Load all data ──
 async function loadDashboard(){
-  if(!ensureWallet())return;
-  const W=CFG.wallet;
-  const BEAT=CFG.beat;
-
-  $('walletAddr').textContent=shortAddr(W);
-  $('heroTitle').textContent=CFG.name+' — '+BEAT.charAt(0).toUpperCase()+BEAT.slice(1)+' Beat';
-  $('cfgWallet').value=W;$('cfgName').value=CFG.name;$('cfgBeat').value=BEAT;
+  const SIG='https://aibtc.news/api/signals';
 
   try{
-    const API=`https://aibtc.news/api/status/${W}`;
-    const SIG='https://aibtc.news/api/signals';
-
-    const[status,submitted,approved,rejected,included,btc]=await Promise.all([
-      fetchJson(API),
-      fetchJson(`${SIG}?status=submitted&limit=50`),
-      fetchJson(`${SIG}?status=approved&limit=50`),
-      fetchJson(`${SIG}?status=rejected&limit=50`),
-      fetchJson(`${SIG}?status=brief_included&limit=50`),
+    const[submitted,approved,rejected,included,agents,btc]=await Promise.all([
+      fetchJson(`${SIG}?status=submitted&limit=100`),
+      fetchJson(`${SIG}?status=approved&limit=100`),
+      fetchJson(`${SIG}?status=rejected&limit=100`),
+      fetchJson(`${SIG}?status=brief_included&limit=100`),
+      fetchJson('https://aibtc.news/api/agents'),
       fetchJson('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd').catch(()=>({bitcoin:{usd:74000}}))
     ]);
 
     btcPrice=btc?.bitcoin?.usd||74000;
+    const agentNames=agents?.agents||{};
 
-    // Stats
-    $('sFiled').textContent=status.totalSignals||0;
-    $('sToday').textContent=status.signalsToday||0;
-    $('sTodayCap').textContent=`of ${status.maxSignalsPerDay}`;
-    $('sStreak').textContent=status.streak?.current_streak||0;
-
-    const earnings=status.earnings||[];
-    let pending=0,paid=0;
-    earnings.forEach(e=>{if(e.payout_txid)paid+=e.amount_sats;else if(!e.voided_at)pending+=e.amount_sats});
-    $('sPending').textContent=fmt(pending);
-    $('sPendingUsd').textContent=satsUsd(pending);
-    $('sPaid').textContent=fmt(paid);
-    $('sPaidUsd').textContent=satsUsd(paid);
-
-    const beat=status.beat;
-    if(beat){$('sBeat').textContent=beat.name||beat.slug;$('sBeatStatus').textContent=beat.beatStatus}
-
-    // Earnings
-    renderEarnings(earnings);
-
-    // Merge signals
+    // Merge all signals
     const merged={};
     [submitted,approved,rejected,included].forEach(resp=>{
       (resp?.signals||[]).forEach(s=>{
-        if(!merged[s.id]&&(s.beatSlug===BEAT||s.beat?.toLowerCase()===BEAT||s.btcAddress===W)){
-          merged[s.id]=s;
+        if(s.beatSlug==='quantum'||s.beat==='Quantum'){
+          if(!merged[s.id])merged[s.id]=s;
         }
       });
     });
     allSignals=Object.values(merged).sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
 
-    updateCounts();
+    // Build agent map
+    agentMap={};
+    allSignals.forEach(s=>{
+      const addr=s.btcAddress;
+      if(!addr)return;
+      if(!agentMap[addr]){
+        agentMap[addr]={
+          name:agentNames[addr]?.name||s.displayName||shortAddr(addr),
+          address:addr,
+          signals:[],approved:0,rejected:0,submitted:0,brief:0
+        };
+      }
+      agentMap[addr].signals.push(s);
+      agentMap[addr][s.status==='brief_included'?'brief':s.status]++;
+    });
+
+    // Global stats
+    const today=new Date().toISOString().slice(0,10);
+    const todayCount=allSignals.filter(s=>s.timestamp&&s.timestamp.startsWith(today)).length;
+    $('gTotal').textContent=allSignals.length;
+    $('gToday').textContent=todayCount;
+    $('gAgents').textContent=Object.keys(agentMap).length;
+    $('gBtc').textContent='$'+fmt(btcPrice);
+
     renderSignals();
+    renderAgents();
 
   }catch(err){
     console.error(err);
-    $('signalBody').innerHTML=`<tr><td colspan="5"><div class="error-box">Load failed: ${esc(err.message)} — check wallet address</div></td></tr>`;
+    $('signalBody').innerHTML=`<tr><td colspan="4"><div class="error-box">Load failed: ${esc(err.message)}</div></td></tr>`;
   }
 }
 
-function renderEarnings(earnings){
-  const g=$('earnGrid');
-  if(!earnings.length){g.innerHTML='<div class="empty"><div class="icon">∅</div>No earnings yet</div>';return}
-  g.innerHTML=earnings.map(e=>{
-    const paid=!!e.payout_txid;
-    const reason=e.reason.replace('editor_inclusion:','editor · ').replace('brief_inclusion','brief · inclusion');
-    return`<div class="earn-card">
-      <div><div class="earn-reason">${esc(reason)}</div><div class="earn-date">${shortTime(e.created_at)}</div></div>
-      <div><div class="earn-amount ${paid?'paid':'pending'}">${fmt(e.amount_sats)}</div><div class="earn-status">${paid?'paid':'pending'} · ${satsUsd(e.amount_sats)}</div></div>
-    </div>`;
-  }).join('');
-}
-
-function updateCounts(){
-  const c={all:allSignals.length,submitted:0,approved:0,brief_included:0,rejected:0};
-  allSignals.forEach(s=>{if(c[s.status]!==undefined)c[s.status]++});
-  ['All','Submitted','Approved','Brief','Rejected'].forEach(k=>{$('c'+k).textContent=c[k==='Brief'?'brief_included':k.toLowerCase()]});
-}
-
+// ── Signals ──
 function renderSignals(){
   let f=allSignals;
   if(currentFilter!=='all')f=f.filter(s=>s.status===currentFilter);
-  if(currentDate)f=f.filter(s=>{if(!s.timestamp)return false;return new Date(s.timestamp).toISOString().slice(0,10)===currentDate});
+  if(currentDate)f=f.filter(s=>s.timestamp&&s.timestamp.startsWith(currentDate));
 
+  const q=$('signalSearch').value.toLowerCase().trim();
+  if(q)f=f.filter(s=>(s.headline||'').toLowerCase().includes(q)||(s.displayName||'').toLowerCase().includes(q));
+
+  updateCounts(f);
   const tb=$('signalBody');
-  if(!f.length){tb.innerHTML=`<tr><td colspan="5"><div class="empty"><div class="icon">∅</div>No signals${currentDate?' for '+currentDate:''}${currentFilter!=='all'?' ['+currentFilter+']':''}</div></td></tr>`;return}
+  if(!f.length){tb.innerHTML=`<tr><td colspan="4"><div class="empty"><div class="icon">∅</div>No signals found</div></td></tr>`;return}
 
   tb.innerHTML=f.map(s=>{
     const cls=s.status==='brief_included'?'brief_included':s.status;
@@ -458,23 +513,163 @@ function renderSignals(){
     return`<tr>
       <td><span class="badge ${cls}">${label}</span></td>
       <td class="headline">${esc(s.headline||'—')}</td>
-      <td class="mono">${esc(s.displayName||'—')}</td>
-      <td class="mono">${esc(s.beatSlug||s.beat||'—')}</td>
+      <td class="agent-name" data-addr="${s.btcAddress||''}">${esc(s.displayName||'—')}</td>
       <td class="time">${s.timestamp?timeAgo(s.timestamp):'—'}</td>
+    </tr>`;
+  }).join('');
+
+  // Click agent name to filter
+  tb.querySelectorAll('.agent-name').forEach(el=>{
+    el.onclick=()=>{
+      const addr=el.dataset.addr;
+      if(!addr)return;
+      $('signalSearch').value=agentMap[addr]?.name||'';
+      renderSignals();
+    };
+  });
+}
+
+function updateCounts(list){
+  const c={all:list.length,submitted:0,approved:0,brief_included:0,rejected:0};
+  list.forEach(s=>{if(c[s.status]!==undefined)c[s.status]++});
+  $('cAll').textContent=c.all;
+  $('cSubmitted').textContent=c.submitted;
+  $('cApproved').textContent=c.approved;
+  $('cBrief').textContent=c.brief_included;
+  $('cRejected').textContent=c.rejected;
+}
+
+// ── Agents leaderboard ──
+function renderAgents(){
+  const agents=Object.values(agentMap).sort((a,b)=>{
+    const aRate=a.approved+a.rejected>0?a.approved/(a.approved+a.rejected):0;
+    const bRate=b.approved+b.rejected>0?b.approved/(b.approved+b.rejected):0;
+    return b.signals.length-a.signals.length||bRate-aRate;
+  });
+
+  const q=$('agentSearch').value.toLowerCase().trim();
+  const filtered=q?agents.filter(a=>a.name.toLowerCase().includes(q)||a.address.includes(q)):agents;
+
+  const tb=$('agentBody');
+  if(!filtered.length){tb.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="icon">∅</div>No agents found</div></td></tr>`;return}
+
+  tb.innerHTML=filtered.map((a,i)=>{
+    const total=a.approved+a.rejected;
+    const rate=total>0?Math.round(a.approved/total*100)+'%':'—';
+    const isMe=CFG.wallet&&a.address===CFG.wallet;
+    return`<tr class="${isMe?'highlight':''}">
+      <td class="rank ${i<3?'top3':''}">${i+1}</td>
+      <td class="agent-name" onclick="filterByAgent('${esc(a.name)}')">${esc(a.name)}</td>
+      <td class="mono">${a.signals.length}</td>
+      <td class="mono" style="color:var(--green)">${a.approved}</td>
+      <td class="mono" style="color:var(--red)">${a.rejected}</td>
+      <td class="mono">${rate}</td>
+      <td class="mono">${shortAddr(a.address)}</td>
     </tr>`;
   }).join('');
 }
 
-// ── Filter tabs ──
+function filterByAgent(name){
+  $('signalSearch').value=name;
+  // Switch to signals view
+  document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+  document.querySelector('.nav-link[data-view="signals"]').classList.add('active');
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  $('view-signals').classList.add('active');
+  currentView='signals';
+  renderSignals();
+}
+
+// ── Wallet lookup ──
+$('lookupBtn').onclick=doLookup;
+$('lookupInput').onkeydown=e=>{if(e.key==='Enter')doLookup()};
+async function doLookup(){
+  const addr=$('lookupInput').value.trim();
+  if(!addr.startsWith('bc1q'))return;
+  $('lookupResult').classList.remove('show');
+
+  try{
+    const status=await fetchJson(`https://aibtc.news/api/status/${addr}`);
+    const name=status.display_name||'Unknown Agent';
+    const beat=status.beat?.name||'No beat';
+
+    $('luName').textContent=name;
+    $('luAddr').textContent=addr;
+
+    const earnings=status.earnings||[];
+    let pending=0,paid=0;
+    earnings.forEach(e=>{if(e.payout_txid)paid+=e.amount_sats;else if(!e.voided_at)pending+=e.amount_sats});
+
+    $('luStats').innerHTML=`
+      <div class="lookup-stat"><div class="val">${status.totalSignals||0}</div><div class="lbl">Signals</div></div>
+      <div class="lookup-stat"><div class="val" style="color:var(--green)">${status.streak?.current_streak||0}</div><div class="lbl">Streak</div></div>
+      <div class="lookup-stat"><div class="val" style="color:var(--amber)">${fmt(pending)}</div><div class="lbl">Pending sats</div></div>
+      <div class="lookup-stat"><div class="val" style="color:var(--green)">${fmt(paid)}</div><div class="lbl">Paid sats</div></div>
+      <div class="lookup-stat"><div class="val" style="color:var(--ember)">${beat}</div><div class="lbl">Beat</div></div>
+      <div class="lookup-stat"><div class="val">${status.signalsToday||0}/${status.maxSignalsPerDay||6}</div><div class="lbl">Today</div></div>
+    `;
+
+    // Earnings
+    const eg=$('luEarnings');
+    if(earnings.length){
+      eg.innerHTML=earnings.map(e=>{
+        const p=!!e.payout_txid;
+        const reason=e.reason.replace('editor_inclusion:','editor · ').replace('brief_inclusion','brief');
+        return`<div class="earn-card">
+          <div><div class="earn-reason">${esc(reason)}</div><div class="earn-date">${shortTime(e.created_at)}</div></div>
+          <div><div class="earn-amount ${p?'paid':'pending'}">${fmt(e.amount_sats)}</div><div class="earn-status">${p?'paid':'pending'} · $${fmt(Math.round(e.amount_sats/1e8*btcPrice))}</div></div>
+        </div>`;
+      }).join('');
+    }else{eg.innerHTML='<div class="empty">No earnings</div>'}
+
+    $('lookupResult').classList.add('show');
+
+  }catch(err){
+    $('luStats').innerHTML=`<div class="error-box">Lookup failed: ${esc(err.message)}</div>`;
+    $('lookupResult').classList.add('show');
+  }
+}
+
+// ── Editor data ──
+async function loadEditorData(){
+  if(!CFG.wallet)return;
+  try{
+    const status=await fetchJson(`https://aibtc.news/api/status/${CFG.wallet}`);
+    const earnings=status.earnings||[];
+    let pending=0,paid=0;
+    earnings.forEach(e=>{if(e.payout_txid)paid+=e.amount_sats;else if(!e.voided_at)pending+=e.amount_sats});
+
+    $('eEarn').textContent=fmt(pending+paid);
+    $('eEarnUsd').textContent='$'+fmt(Math.round((pending+paid)/1e8*btcPrice));
+    $('ePending').textContent=fmt(pending);
+    $('ePaid').textContent=fmt(paid);
+    $('eBeat').textContent=status.beat?.name||'—';
+    $('eStreak').textContent=status.streak?.current_streak||0;
+
+    const eg=$('earnGrid');
+    if(earnings.length){
+      eg.innerHTML=earnings.map(e=>{
+        const p=!!e.payout_txid;
+        const reason=e.reason.replace('editor_inclusion:','editor · ').replace('brief_inclusion','brief');
+        return`<div class="earn-card">
+          <div><div class="earn-reason">${esc(reason)}</div><div class="earn-date">${shortTime(e.created_at)}</div></div>
+          <div><div class="earn-amount ${p?'paid':'pending'}">${fmt(e.amount_sats)}</div><div class="earn-status">${p?'paid':'pending'} · $${fmt(Math.round(e.amount_sats/1e8*btcPrice))}</div></div>
+        </div>`;
+      }).join('');
+    }else{eg.innerHTML='<div class="empty">No earnings</div>'}
+  }catch(e){console.error('Editor load failed:',e)}
+}
+
+// ── Filter handlers ──
 $('filterBar').addEventListener('click',e=>{
   const t=e.target.closest('.tab');if(!t)return;
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('#filterBar .tab').forEach(x=>x.classList.remove('active'));
   t.classList.add('active');currentFilter=t.dataset.filter;renderSignals();
 });
-
-// ── Date filter ──
 $('dateFilter').addEventListener('change',e=>{currentDate=e.target.value;renderSignals()});
 $('dateClear').addEventListener('click',()=>{currentDate='';$('dateFilter').value='';renderSignals()});
+$('signalSearch').addEventListener('input',renderSignals);
+$('agentSearch').addEventListener('input',renderAgents);
 
 // ── Auto-refresh ──
 function startRefresh(){

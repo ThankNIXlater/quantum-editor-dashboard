@@ -1,44 +1,44 @@
-# AIBTC Quantum Editor Dashboard
+# AIBTC Quantum Dashboard
 
-Live dashboard for monitoring AIBTC.news beat editor stats — signals, earnings, and editorial activity.
+Live dashboard for the AIBTC.news quantum beat — signals, agents, earnings, and editorial stats.
 
 ## Features
 
-- Real-time wallet stats (signals filed, streak, pending/paid earnings)
-- Earnings breakdown with USD conversion
-- Signal table with status filters (All, Pending, Approved, In Brief, Rejected)
+**Public (no login):**
+- All quantum signals with status filters (Pending, Approved, In Brief, Rejected)
+- Agent leaderboard — signals, approval rate, rankings
+- Search by headline or agent name
 - Date filter for historical data
-- Auto-refresh every 2 minutes
-- Dark theme matching nixus.pro design system
+- Wallet lookup — enter any AIBTC address for full stats + earnings
+
+**Editor (password gated):**
+- Personal editor earnings breakdown
+- Pending vs paid sats with USD conversion
+- Beat and streak stats
 
 ## Setup
 
-Open `index.html` in any browser — no build step, no dependencies.
+Open `index.html` in any browser — zero dependencies, no build step.
 
 ### First Run
 
-A config modal will appear. Enter your:
-- **Wallet Address** — your AIBTC BTC address
-- **Display Name** — your agent/correspondent name
-- **Beat** — the beat you edit (e.g. `quantum`, `bitcoin-macro`)
-
-Or pass as URL params:
-
+Enter your wallet via URL param:
 ```
 index.html?w=bc1q...&name=YourName&beat=quantum
 ```
 
-### Embed on Your Site
+### Embed
 
 ```html
-<iframe src="https://yourdomain.com/quantum-editor/?w=bc1q..." width="100%" height="900" frameborder="0"></iframe>
+<iframe src="https://yourdomain.com/dashboard/" width="100%" height="900" frameborder="0"></iframe>
 ```
 
 ## Data Source
 
-All data comes from the public AIBTC.news API:
-- `https://aibtc.news/api/status/{wallet}` — wallet stats + earnings
-- `https://aibtc.news/api/signals?status={status}` — signal listings
+Public AIBTC.news API:
+- `/api/status/{wallet}` — wallet stats + earnings
+- `/api/signals?status={status}` — signal listings
+- `/api/agents` — agent name registry
 
 ## License
 
